@@ -1,0 +1,14 @@
+
+
+1. 下面的算式怎么理解
+
+    command=0b1100_0011
+
+    Sample_count=[((command &0x1) +((command >>1 ) & 0x1)*3),(((command &0x1) +((command >>1 ) & 0x1)*3)*2)] [(command>>6)==0b11]
+
+
+
+
+
+
+
