@@ -8,27 +8,6 @@ reg00：   又名 FIFO2，分为写入寄存器和读取寄存器
       r：   详见第16页
 
 
-==========================sensor==init=================================
-
-
-I2C_Write_v2(I2C_Addr,0x01,0x01)    // reg01.0 =1,  soft reset
-I2C_Write_v2(I2C_Addr,0x20,0x95)    //reg20.7=1, reg20.6-5=00, reg20.4-2=101, reg20.0=1, 使能vref, 设pga power 为0.4x, 设pga gain为 64x，使能pga
-
-I2C_Write_v2(I2C_Addr,0x23,0x01)    //reg23.7=0, reg23.0=1, 设vref为2.5v，工厂内部控制 
-
-I2C_Write_v2(I2C_Addr,0x2a,0x87)    //reg2a.6=1, reg2a.5-3=000, reg2a.2=1, reg2a.1=1, reg2a.0=1,  
-                                                     使能vref从sleep到save模式, 设置分频为10(或已理解，与后面的bit2结合看)，设分频倍数为1，设scl上拉，设sda上拉
-
-I2C_Write_v2(I2C_Addr,0x24,0xff)     //reg24.7-4=1111, reg24.3-0=1111, 设置y输出电流为3.1mA, 设置x输出电流为3.1mA
-I2C_Write_v2(I2C_Addr,0x25,0x0f)    //reg25.3-0=1111, 设置z输出电流为3.1mA
-
-I2C_Write_v2(I2C_Addr,0x26,0x01)     //reg26.3-0=0001, adc转换周期高4位 = 0001    (OSR)
-I2C_Write_v2(I2C_Addr,0x27,0x00)     //reg27.7-0=0000 0000, adc转换周期低8位 = 0000 0000   (1--4096)  或4095  （OSR）
-
-I2C_Write_v2(I2C_Addr,0x28,0x28)    //reg28.6-0 = 28H, 转换时间cycle  (1-127)   (INIT)
-
-I2C_Write_v2(I2C_Addr,0x29,0x20)    //reg29.5-0 = 20H，设置时间周期补偿  （1-63）     
-I2C_Write_v2(I2C_Addr,0x1e,0x0)     //reg1e =0， 设置efuses  （待理解）
 
 
 
@@ -70,8 +49,34 @@ def I2C_Read_v2 (static_addr,length):
 
 
 
-
 ============================ 参考 =================================
+
+
+
+
+==========================sensor==init=================================
+
+I2C_Write_v2(I2C_Addr,0x01,0x01)    // reg01.0 =1,  soft reset
+I2C_Write_v2(I2C_Addr,0x20,0x95)    //reg20.7=1, reg20.6-5=00, reg20.4-2=101, reg20.0=1, 使能vref, 设pga power 为0.4x, 设pga gain为 64x，使能pga
+
+I2C_Write_v2(I2C_Addr,0x23,0x01)    //reg23.7=0, reg23.0=1, 设vref为2.5v，工厂内部控制 
+
+I2C_Write_v2(I2C_Addr,0x2a,0x87)    //reg2a.6=1, reg2a.5-3=000, reg2a.2=1, reg2a.1=1, reg2a.0=1,  
+                                                     使能vref从sleep到save模式, 设置分频为10(或已理解，与后面的bit2结合看)，设分频倍数为1，设scl上拉，设sda上拉
+
+I2C_Write_v2(I2C_Addr,0x24,0xff)     //reg24.7-4=1111, reg24.3-0=1111, 设置y输出电流为3.1mA, 设置x输出电流为3.1mA
+I2C_Write_v2(I2C_Addr,0x25,0x0f)    //reg25.3-0=1111, 设置z输出电流为3.1mA
+
+I2C_Write_v2(I2C_Addr,0x26,0x01)     //reg26.3-0=0001, adc转换周期高4位 = 0001    (OSR)
+I2C_Write_v2(I2C_Addr,0x27,0x00)     //reg27.7-0=0000 0000, adc转换周期低8位 = 0000 0000   (1--4096)  或4095  （OSR）
+
+I2C_Write_v2(I2C_Addr,0x28,0x28)    //reg28.6-0 = 28H, 转换时间cycle  (1-127)   (INIT)
+
+I2C_Write_v2(I2C_Addr,0x29,0x20)    //reg29.5-0 = 20H，设置时间周期补偿  （1-63）     
+I2C_Write_v2(I2C_Addr,0x1e,0x0)     //reg1e =0， 设置efuses  （待理解）
+
+
+====================command ====参考================================
 
 #    for commandx in (
 0b0000_0001,     //0x01  ，1， T1
