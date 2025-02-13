@@ -15,7 +15,7 @@ def movingaverage(interval, window_size):
 # path = "C:/work/Ommo/Projects/ASIC/Testing/PGA tests/New Tests/16x/"
 # config = "65mVac-600mVdc"
 
-path = "D:/prj_noiseanalysis/32x_txt/"
+path = "D:/prj_noiseanalysis/analysis/32x_txt/"
 config = "35mVac-600mVdc"
 
 x_file_name = config + ".txt"
@@ -114,8 +114,8 @@ plt.grid(which='major', color='black', linestyle='-', linewidth = 0.75)
 plt.grid(which='minor', color='black', linestyle='-', linewidth = 0.25)
 plt.text(1.2, graph_top-8, 'SNR = ' + str(SNR) + ' dB',fontsize=12)
 plt.text(1.2, graph_top-15, 'THD = ' + str(THD) + ' dB',fontsize=12)
-plt.savefig(plot_path2) 
-plt.show()             
+#-- plt.savefig(plot_path2)
+#-- plt.show()
 
 # Waveform plot, will display 2 cycles of the input excitation waveform  
 # first search for a positive going transition
@@ -127,11 +127,18 @@ while (spec_filt[i] < 0 and i < (len(spec_filt)-1)):
 if (i > 8000):
     i = 0
 
+
 wave_max = max(spec_filt)  
 wave_min = min(spec_filt)
 
 wave_plot_top = wave_max + abs(wave_max * 0.2)
 wave_plot_bot = wave_min - abs(wave_min * 0.2)
+
+# print(wave_max)
+# print(wave_min)
+# print(wave_plot_top)
+# print(wave_plot_bot)
+
 range_sine = round(100*((wave_max - wave_min)/float(2**24)),1)
 offset = 100*((abs(wave_max) - abs(wave_min))/((wave_max - wave_min)/2))
 plot_len = int(round((2*fs/f_exc),0))
